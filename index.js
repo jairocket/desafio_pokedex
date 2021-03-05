@@ -9,8 +9,23 @@ const pokemonList = require('./pokemonList');
 
 const app = express();
 
-app.get('/pokemons', (req, res) => {
+app.get('/', (req, res) => {
     res.send(pokemonList);
+    
+});
+
+function search(name, array){
+    for (let i in array){
+        if (name === array[i]){
+            let message = "Temos um " + name + " pra você!"
+            return message
+        }
+    }
+    return "pokemon não encontrado!"
+}
+
+app.get('/pokemons', (req, res) => {
+    res.send(search(req.query.name, pokemonList));
     
 });
 
